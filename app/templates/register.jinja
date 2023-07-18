@@ -1,0 +1,27 @@
+{% extends "base.jinja" %}
+
+{% block content %}
+    <h1>Register</h1>
+    {{ form.hidden_tag() }}
+    <p>
+    {{ form.username.label }} <br>
+    {{ form.username(size=32) }}
+    </p>
+    <p>
+    {{ form.email.label }} <br>
+    {{ form.email(size=32) }}
+    </p>
+    <p>
+    {{ form.password.label }} <br>
+    {{ form.password(size=32) }}
+    </p>
+    <p>
+    {{ form.reenter_password.label }} <br>
+    {{ form.reenter_password(size=32) }}
+    </p>
+    <p>
+        {{ form.remember_me.label }} <br>
+        {{ form.remember_me() }}
+    </p>
+    <p>{{ form.submit() }}</p>
+{% endblock content %}

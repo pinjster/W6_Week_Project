@@ -1,0 +1,9 @@
+{% extends "base.jinja" %}
+{% block content %}
+    <p>What are we watching friday?</p>
+    {% if chosen %}
+        <p>{{ chosen }}</p>
+    {% else %}
+        <h5>Undecided</h5>
+    {% endif %}
+{% endblock content %}  

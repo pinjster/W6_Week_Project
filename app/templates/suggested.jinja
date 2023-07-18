@@ -1,0 +1,8 @@
+{% extends "base.jinja" %}
+
+{% block content %}
+    <h3>All suggested movies</h3>
+    {% for movie in movie_list %}
+        <h5>{{ movie }}</h5>
+    {% endfor %}
+{% endblock content %}
