@@ -3,6 +3,18 @@
 {% block content %}
     <h3>All suggested movies</h3>
     {% for movie in movie_list %}
-        <h5>{{ movie }}</h5>
+        <h5>
+        {{ movie.title }} ({{ movie.release_year }}) || recommended by {{movie.author.username}}
+        <span> 
+{#        <form action="" method="POST" novalidate> #}
+        {{ form.hidden_tag() }}
+            <span>
+                {{ form.option }}
+                <span>{{ form.submit() }}</span>
+            </span>
+{#       </form> #} 
+        </span>
+        </h5>
+        <h6>"{{ movie.description }}" -{{ movie.author.username }}</h6>
     {% endfor %}
 {% endblock content %}

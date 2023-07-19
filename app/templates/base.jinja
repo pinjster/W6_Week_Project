@@ -16,8 +16,11 @@
             <li><a href="{{ url_for('about') }}">About</a></li>
         </ul>
     </nav>
+    {% for message in get_flashed_messages() %}
+        <p style="color: red;">{{ message }}</p>
+    {% endfor %}
     <h1>Let's Watch..</h1>
     {% block content %}
-    {% endblock %}
+    {% endblock content %}
 </body>
 </html>

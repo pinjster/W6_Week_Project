@@ -1,3 +1,4 @@
 lets_watch_venv/
 .env
 __pycache__
+migrations
