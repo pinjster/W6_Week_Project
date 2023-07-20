@@ -1,13 +1,12 @@
 {% extends "base.jinja" %}
 {% block content %}
-    <p>What are we watching friday?</p>
+    <p>What are we watching friday?
     {% if chosen %}
-        <p>{{ chosen }}</p>
+        <span>  {{ chosen }}  </span>
     {% else %}
         <h5>Undecided</h5>
     {% endif %}
     <br>
     {% include "user_submit_suggest.jinja" %}
-    
+    </p>
 {% endblock content %}
-

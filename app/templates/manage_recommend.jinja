@@ -1,0 +1,15 @@
+{% extends "base.jinja" %}
+
+{% block content %}
+    <form action="" method="POST">
+        {{ form.hidden_tag() }}
+        {% for entry in movie_list %}
+            {{ form.item(data = entry.movie_id) }}
+            <p>
+            {{ entry.title }} <span> ({{ entry.release_year }})</span>
+            <span>    {{ form.del_form() }} </span>
+            <br> {{ entry.description }} 
+            </p>
+        {% endfor %}
+    </form>
+{% endblock content %}

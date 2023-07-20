@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import IntegerField, SelectField, StringField, PasswordField, SubmitField, BooleanField, TextAreaField
+from wtforms import IntegerField, SelectField, StringField, PasswordField, SubmitField, BooleanField, TextAreaField, HiddenField
 from wtforms.validators import DataRequired, EqualTo
 
 class LoginForm(FlaskForm):
@@ -22,7 +22,17 @@ class AddMovieForm(FlaskForm):
     year = IntegerField('Year?')
     description = TextAreaField('Reason for suggestion')
     submit = SubmitField('Submit suggestion')
+    
+class DeleteForm(FlaskForm):
+    item = HiddenField()
+    name = HiddenField()
+    del_form = SubmitField('Delete')
+
+class SearchUserForm(FlaskForm):
+    username = StringField('Username', validators=[ DataRequired() ])
+    submit = SubmitField('Search')
 
 class VoteForm(FlaskForm):
-    option = SelectField(u'Vote', choices=['upvote', 'downvote'])
+    option = SelectField('Vote', choices=['upvote', 'downvote'])
     submit = SubmitField('vote')
+

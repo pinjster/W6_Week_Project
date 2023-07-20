@@ -1,0 +1,17 @@
+{% extends "base.jinja" %}
+
+{% block content %}
+
+<h2>{{ username }}</h2>
+
+    <main>
+        {% for post in posts %}
+            <p>
+            {{ post.title }} <br>
+            "{{ post.description }}" <br>
+            posted: {{ post.date_added }}
+            </p>
+        {% endfor %}
+
+    </main>
+{% endblock content %}

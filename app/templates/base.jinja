@@ -9,13 +9,28 @@
 <body>
     <nav>
         <ul>
-            <li><a href="{{ url_for('home_page') }}">Home</a></li>
-            <li><a href="{{ url_for('suggested') }}">Suggested Movies</a></li>
-            <li><a href="{{ url_for('sign_in') }}">Sign In</a></li>
-            <li><a href="{{ url_for('register') }}">Register</a></li>
-            <li><a href="{{ url_for('about') }}">About</a></li>
+            <li><a href="{{ url_for('main.home') }}">Home</a></li>
+            <li><a href="{{ url_for('social.suggested') }}">Suggested Movies</a></li>
+            {% if current_user.is_authenticated %}
+                <li><a href="{{ url_for('auth.logout') }}">Log out</a></li>
+                <li><a href="{{ url_for('social.myrecommends') }}">My Recommendations</a></li>
+            {% else %}
+                <li><a href="{{ url_for('auth.signin') }}">Sign In</a></li>
+                <li><a href="{{ url_for('auth.register') }}">Register</a></li>
+            {% endif %}
+            <li><a href="{{ url_for('social.about') }}">About</a></li>
+            <li>
+                <form method="POST" action="{{ url_for('social.usersearch') }}">
+                    {{ g.suf.hidden_tag() }}
+                    {{ g.suf.username() }}
+                    {{ g.suf.submit() }}
+                </form>
+            </li>
         </ul>
     </nav>
+    {% if current_user.is_authenticated %}
+        Hi {{ current_user.username }}!
+    {% endif %}
     {% for message in get_flashed_messages() %}
         <p style="color: red;">{{ message }}</p>
     {% endfor %}
