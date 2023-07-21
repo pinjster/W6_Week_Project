@@ -1,9 +1,9 @@
 from flask_wtf import FlaskForm
 from wtforms import IntegerField, SelectField, StringField, PasswordField, SubmitField, BooleanField, TextAreaField, HiddenField
-from wtforms.validators import DataRequired, EqualTo
+from wtforms.validators import DataRequired, EqualTo, Email
 
 class LoginForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired(), Email() ])
     password = PasswordField('Password', validators=[DataRequired()])
     remember_me = BooleanField('Remember Me')
     submit = SubmitField('Sign In')
@@ -12,7 +12,7 @@ class RegisterForm(FlaskForm):
     fname = StringField('First name')
     lname = StringField('Last name')
     username = StringField('username', validators=[DataRequired()])
-    email = StringField('Your email', validators=[DataRequired()])
+    email = StringField('Your email', validators=[DataRequired(), Email() ])
     password = PasswordField('Password', validators=[DataRequired()])
     reenter_password = PasswordField('Re-enter Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Sign Up')
