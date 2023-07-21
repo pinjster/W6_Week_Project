@@ -2,7 +2,7 @@ from app import app
 from flask import g, flash, render_template, redirect, url_for
 from app.forms import VoteForm, AddMovieForm, DeleteForm, SearchUserForm
 from app.models import Movie, User
-from flask_login import current_user
+from flask_login import current_user, login_required
 from . import bp
 
 @app.before_request
@@ -21,14 +21,15 @@ def suggested():
 def about():
     return render_template('about.jinja')
 
-@bp.route('/myrecommends', methods = ['GET', 'POST'])
-def myrecommends():
+@bp.route('/my_profile', methods = ['GET', 'POST'])
+@login_required
+def my_profile():
     if g.df.validate_on_submit():
         flash(f"{g.df.name.data} has been removed from your recommendations")
         mov = Movie.query.filter_by(movie_id = g.df.item.data).first()
         Movie.delete_movie(mov)
         
-    return render_template('manage_recommend.jinja', movie_list = Movie.query.filter_by(user_id = current_user.user_id), form = g.df)
+    return render_template('my_profile.jinja', movie_list = Movie.query.filter_by(user_id = current_user.user_id), form = g.df)
 
 @bp.route('/profile/<username>')
 def profile(username):

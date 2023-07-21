@@ -3,6 +3,8 @@ from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
+
+
 @login_manager.user_loader
 def load_user(id):
     return User.query.get(id)
@@ -37,6 +39,24 @@ class User(db.Model, UserMixin):
         db.session.delete(self)
         db.session.commit()
 
+    def from_dict(self, d):
+        self.fname = d['fname']
+        self.lname  = d['lname']
+        self.username  = d['username']
+        self.email  = d['email']
+        self.pass_hash  = d['pass_hash']
+        self.hash_password(self.pass_hash)   
+
+    def to_dict(self):
+        d = {
+            'user_id' : self.user_id,
+            'fname' : self.fname,
+            'lname' : self.lname,
+            'username' : self.username,
+            'email' : self.email
+        }
+        return d     
+
 class Movie(db.Model):
     movie_id = db.Column(db.Integer, primary_key = True)
     title = db.Column(db.String(), nullable = False)
@@ -62,6 +82,27 @@ class Movie(db.Model):
     def delete_movie(self):
         db.session.delete(self)
         db.session.commit()
+
+    def to_dict(self):
+        d = {
+            'movie_id' : self.movie_id,
+            'title' : self.title,
+            'user_id' : self.user_id,
+            'date_added' : self.date_added,
+            'release_year' : self.release_year,
+            'rated' : self.rated,
+            'description' : self.description,
+            'poster' : self.poster
+        }
+        return d    
+    
+    def from_dict(self, d):
+        self.title = d['title']
+        self.user_id = d['user_id']
+        self.release_year = d['release_year']
+        self.rated = d['rated']
+        self.description = d['description']
+        self.poster = d['poster']
     
 class Vote(db.Model):
     vote_id = db.Column(db.Integer, primary_key = True)
@@ -79,3 +120,5 @@ class Vote(db.Model):
     def delete_vote(self):
         db.session.delete(self)
         db.session.commit()
+
+

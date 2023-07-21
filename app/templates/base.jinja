@@ -9,13 +9,12 @@
 <body>
     <nav>
         <ul>
+            <li>Let's Watch...</li>
             <li><a href="{{ url_for('main.home') }}">Home</a></li>
             <li><a href="{{ url_for('social.suggested') }}">Suggested Movies</a></li>
             {% if current_user.is_authenticated %}
                 <li><a href="{{ url_for('auth.logout') }}">Log out</a></li>
-                <li><a href="{{ url_for('social.myrecommends') }}">My Recommendations</a></li>
             {% else %}
-                <li><a href="{{ url_for('auth.signin') }}">Sign In</a></li>
                 <li><a href="{{ url_for('auth.register') }}">Register</a></li>
             {% endif %}
             <li><a href="{{ url_for('social.about') }}">About</a></li>
@@ -26,6 +25,11 @@
                     {{ g.suf.submit() }}
                 </form>
             </li>
+            {% if current_user.is_authenticated %}
+                <li><a href="{{ url_for('social.my_profile') }}">My Profile</a></li>
+            {% else %}
+                <li><a href="{{ url_for('auth.signin') }}">Sign In</a></li>
+            {% endif %}
         </ul>
     </nav>
     {% if current_user.is_authenticated %}
@@ -34,7 +38,6 @@
     {% for message in get_flashed_messages() %}
         <p style="color: red;">{{ message }}</p>
     {% endfor %}
-    <h1>Let's Watch..</h1>
     {% block content %}
     {% endblock content %}
 </body>

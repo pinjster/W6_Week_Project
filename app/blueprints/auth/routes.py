@@ -1,4 +1,4 @@
-from flask_login import login_user, logout_user, current_user
+from flask_login import login_user, logout_user, current_user, login_required
 from flask import g, flash, redirect, url_for, render_template
 from . import bp as auth
 from app.forms import LoginForm, RegisterForm
@@ -39,6 +39,7 @@ def register():
     return render_template('register.jinja', form=rf)
 
 @auth.route('/logout')
+@login_required
 def logout():
     logout_user()
     return redirect(url_for('auth.signin'))
